@@ -71,6 +71,11 @@ class MainPageLocators:
     # Кнопка-крестик закрывающая окно подтвержденного заказа и окна "Детали ингредиента"
     BUTTON_CLOSE_CONFIRMATION = (By.XPATH, './/section[contains(@class, "Modal_modal_opened")]//button[contains(@class, "close")]')
 
+    # Счетчик ингредиента
+    INGREDIENT_COUNTER_BUN = (By.XPATH, ".//a[@href='/ingredient/61c0c5a71d1f82001bdaaa6d']//p[contains(@class, 'counter')]")
+
+
+
     #Кнопка логотипа "Stella Burgers@
     #LOGO_STELLA_BURGERS = (By.TAG_NAME, "svg")
 

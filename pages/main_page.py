@@ -49,7 +49,7 @@ class MainPage(BasePage):
 
     @allure.step('Добавить ингредиенты')
     def drag_and_drop_ingredient_to_order(self):
-        target_element = self.find_element_with_wait(MainPageLocators.BASKET)
+        target_element = self.find_element_with_wait(MainPageLocators.BUN_1)
         source_element = self.find_element_with_wait(MainPageLocators.BASKET)
         self.drag_and_drop_element(source_element, target_element)
 
@@ -65,6 +65,12 @@ class MainPage(BasePage):
     def get_number_of_order_in_window_confirmation(self):
         self.wait_for_attribute(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW, '9999')
         return self.get_text_on_element(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW)
+
+    @allure.step('Получить количество ингредиентов в счетчике')
+    def get_number_of_ingredients_in_counter(self):
+        self.wait_for_attribute(MainPageLocators.INGREDIENT_COUNTER_BUN)
+        return self.get_text_on_element(MainPageLocators.INGREDIENT_COUNTER_BUN)
+
 
     #@allure.step('Кликнуть на кнопку закрытия окна о создании заказа')
     #def click_on_button_close_confirmation_window(self):

@@ -5,7 +5,6 @@ from seletools.actions import drag_and_drop
 from data import global_timeout
 
 
-
 class BasePage:
     def __init__(self, driver):
         self.driver = driver

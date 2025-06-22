@@ -11,7 +11,7 @@ class BasePage:
         self.driver = driver
 
     @allure.step("Подождать видимости элемента")
-    def wait_for_element(self, locator):
+    def wait_for_element(self, locator, global_timeout):
         return WebDriverWait(self.driver, global_timeout).until(EC.visibility_of_element_located(locator))
 
     @allure.step("Скролл до элемента")
@@ -49,3 +49,8 @@ class BasePage:
     @allure.step('Перетащить элемент в корзину')
     def drag_and_drop_element(self, source, target):
         drag_and_drop(self.driver, source, target)
+
+    @allure.step('Найти элемент на странице')
+    def find_element_with_wait(self, locator):
+        self.wait_for_element(locator)
+        return self.driver.find_element(*locator)

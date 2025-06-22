@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 
-
 class OrderFeedPageLocators:
 
     # Раздел "Выполнено за всё время"

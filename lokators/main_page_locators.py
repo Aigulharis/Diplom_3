@@ -5,8 +5,17 @@ class MainPageLocators:
     # Кнопка "Конструкторы"
     BUTTON_CONSTRUCTOR = (By.XPATH, ".//a[p[text()='Конструктор']]")
 
+    # Заголовок раздела "Конструктор"
+    CONSTRUCTOR_TITLE = (By.XPATH, '//section[contains(@class, "BurgerIngredients_ingredients")]/h1')
+
     # Кнопка "Лента заказов"
     BUTTON_ORDER_FEED = (By.XPATH, ".//a[p/text()='Лента Заказов']")
+
+    # Кнопка "Личный кабинет"
+    PERSONAL_ACCOUNT_BUTTON = (By.XPATH, ".//p[text()='Личный Кабинет']")
+
+    # Кнопка "Войти в аккаунт" на главной странице
+    ENTER_ACCOUNT_BUTTON = (By.XPATH, ".//button[text()='Войти в аккаунт']")
 
     # Кнопка "Булки"
     BUNS_BUTTON = (By.XPATH, ".//div[contains(@class, 'tab_tab__1SPyG') and not(contains(@class, 'tab_tab_type_current__2BEPc')) and .//span[text()='Булки']]")
@@ -15,10 +24,10 @@ class MainPageLocators:
     ACTIVE_TAB_BUNS = (By.XPATH, ".//div[contains(@class, 'tab_tab_type_current__2BEPc') and span[text()='Булки']]")
 
     # Ингридиент - булка - Флюоресцентная булка R2 -D3
-    Bun_1 = (By.XPATH, ".//div[contains(@class, 'BurgerIngredient_ingredient__priceBox')]")
+    BUN_1 = (By.XPATH, ".//div[contains(@class, 'BurgerIngredient_ingredient__priceBox')]")
 
     # Ингридиент - булка - Краторная булка N-200i
-    Bun_2 = (By.XPATH, ".//a/p[text()='Краторная булка N-200i']/ancestor::a")
+    BUN_2 = (By.XPATH, ".//a/p[text()='Краторная булка N-200i']/ancestor::a")
 
     # Кнопка "Соусы"
     SAUCES_BUTTON = (By.XPATH, ".//span[text()='Соусы']")
@@ -44,8 +53,11 @@ class MainPageLocators:
     # Ингридиент начинка - Плоды Фалленианского дерева
     INGREDIENT_FILLINGS_2 = (By.XPATH, ".//a/p[text()='Плоды Фалленианского дерева']/ancestor::a']")
 
+    # Заголовок окна "Детали ингредиента"
+    INGREDIENT_DETAILS = (By.XPATH, '//h2[contains(@class, "Modal_modal__title") and contains(text(), "Детали")]')
+
     # Корзина
-    #BASKET = (By.XPATH, '//section[contains(@class, "BurgerConstructor_basket")]')
+    BASKET = (By.XPATH, '//section[contains(@class, "BurgerConstructor_basket")]')
 
     # Кнопка "Оформить заказ"
     BUTTON_MAKE_ORDER = (By.CLASS_NAME, 'button_button__33qZ0')
@@ -54,15 +66,10 @@ class MainPageLocators:
     ORDER_CONFIRMATION_WINDOW = (By.XPATH, '//section[contains(@class, "Modal_modal_opened")]/div[contains'
                                              '(@class, "Modal_modal__container")]')
     # Номер заказа в окне подтверждения
-    ORDER_ID_CONFIRMATION_WINDOW = (By.XPATH, '//section[contains(@class, "Modal_modal_opened")]//h2')
+    ORDER_ID_CONFIRMATION_WINDOW = (By.XPATH, './/section[contains(@class, "Modal_modal_opened")]//h2')
 
-    # Кнопка-крестик закрывающая окно подтвержденного заказа
-    BUTTON_CLOSE_CONFIRMATION = (By.XPATH, '//section[contains(@class, "Modal_modal_opened")'
-                                           ']//button[contains(@class, "close")]')
-
-
-
-
+    # Кнопка-крестик закрывающая окно подтвержденного заказа и окна "Детали ингредиента"
+    BUTTON_CLOSE_CONFIRMATION = (By.XPATH, './/section[contains(@class, "Modal_modal_opened")]//button[contains(@class, "close")]')
 
     #Кнопка логотипа "Stella Burgers@
     #LOGO_STELLA_BURGERS = (By.TAG_NAME, "svg")

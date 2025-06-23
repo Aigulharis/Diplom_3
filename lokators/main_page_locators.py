@@ -8,6 +8,9 @@ class MainPageLocators:
     # Заголовок раздела "Конструктор"
     CONSTRUCTOR_TITLE = (By.XPATH, '//section[contains(@class, "BurgerIngredients_ingredients")]/h1')
 
+    # Заголовок раздела "Собери бургер"
+    COLLECT_BURGER = (By.XPATH, '//h1[@class="text text_type_main-large mb-5 mt-10"]')
+
     # Кнопка "Лента заказов"
     BUTTON_ORDER_FEED = (By.XPATH, ".//a[p/text()='Лента Заказов']")
 

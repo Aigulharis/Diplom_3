@@ -19,5 +19,5 @@ class AuthLocators:
     PASSWORD = (By.XPATH, ".//input[@name = 'Пароль']")
 
     # Кнопка "Выйти" в личном кабинете
-    EXIT_BUTTON = (By.XPATH, ".//div[@class = 'Account_account__vgk_w']//button[text()= 'Выход']")
+    #EXIT_BUTTON = (By.XPATH, ".//div[@class = 'Account_account__vgk_w']//button[text()= 'Выход']")
 

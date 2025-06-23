@@ -58,7 +58,7 @@ class MainPage(BasePage):
         target = self.find_element_with_wait(MainPageLocators.BASKET)  # корзина
         self.drag_and_drop_element(source, target)
 
-    @allure.step('Кликнуть на кнопку создания заказа')
+    @allure.step('Кликнуть на кнопку "Оформить заказ"')
     def click_on_button_make_order(self):
         self.click_on_element(MainPageLocators.BUTTON_MAKE_ORDER)
 
@@ -86,6 +86,10 @@ class MainPage(BasePage):
     def click_on_button_close_confirmation_window(self):
         self.check_displaying_of_element(MainPageLocators.BUTTON_CLOSE_ORDER)
         self.click_on_element(MainPageLocators.BUTTON_CLOSE_ORDER)
+
+    @allure.step('Получить текст заголовка "Собери бургур"')
+    def get_text_on_title_collest_burger(self):
+        return self.get_text_on_element(MainPageLocators.COLLECT_BURGER)
 
 
     # возможно не надо будет

@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
 import allure
-from data import Credentials
 from pages.auth_page import AuthPage
 from lokators.auth_page_locators import AuthLocators
 from seletools.actions import drag_and_drop
@@ -9,6 +8,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from lokators.main_page_locators import MainPageLocators
 from pages.main_page import MainPage
+from data import *
+from urls import Url, ApiUrl
+import requests
 
 
 @pytest.fixture(params=["chrome", "firefox"])
@@ -18,12 +20,12 @@ def driver(request):
         driver = webdriver.Chrome()
         driver.get("https://stellarburgers.nomoreparties.site/")
         driver.set_window_size(1920, 1080)
-        #driver.get(main_site)
+        #driver.get(MANE_SITE)
     elif request.param == "firefox":
         driver = webdriver.Firefox()
         driver.get("https://stellarburgers.nomoreparties.site/")
         driver.set_window_size(1920, 1080)
-        #driver.get(main_site)
+        #driver.get(MANE_SITE)
 
     yield driver
     driver.quit()
@@ -40,33 +42,20 @@ def login(driver):
     # после теста выход
     #auth_page.click_on_element(AuthLocators.EXIT_BUTTON)
 
+@pytest.fixture(scope="function")
+def create_user():
+    auth_data_register = {
+        "email": DataUser.DATA_USER["email"],
+        "password": DataUser.DATA_USER["password"],
+        "name": DataUser.DATA_USER["name"]
+    }
+    with allure.step('Создаём пользователя через fixture'):
+        response = requests.post(Url.REGISTER_URL, json=auth_data_register)
+        # Проверяем статус, чтобы fixture отработала как ожидается
+        assert response.status_code == 200
+        response_body = response.json()
 
-@pytest.fixture
-@allure.title('Фикстура создает заказ')
-def create_order(driver):
-    """
-    Фикстура для создания заказа на главной странице.
-    Предполагается, что пользователь уже авторизован.
-    Добавляет ингредиент в корзину и оформляет заказ.
-    """
-    main_page = MainPage(driver)
-    main_page.click_on_button_constructor()
-    main_page.main_page_loading_wait()  # ждём загрузку и скрытие оверлея
+        yield auth_data_register, response_body
 
-    # Перетащить ингредиент
-    main_page.drag_and_drop_ingredient_to_order()
-
-    # Нажать кнопку "Оформить заказ"
-    button_order = driver.find_element(*main_page.locators.BUTTON_MAKE_ORDER)
-    button_order.click()
-
-    # Ждём появления окна с подтверждением заказа
-    WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW)
-    )
-
-    yield driver
-
-    # По окончании теста закрываем окно подтверждения (кнопка крестик)
-    close_button = driver.find_element(*MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
-    close_button.click()
+        access_token = response_body['accessToken']
+        requests.delete(Url.USER_DELETE_URL, headers={'Authorization': access_token})

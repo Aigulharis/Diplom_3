@@ -6,7 +6,8 @@ import allure
 from pages.main_page import MainPage
 from seletools.actions import drag_and_drop
 from pages.histori_page import FeedPage
-from pages.base_page import BasePage
+from pages.auth_page import AuthPage
+from data import Credentials
 
 class TestCounter:
 
@@ -24,12 +25,16 @@ class TestCounter:
 
     @allure.title('Проверка увеличения числа на счетчике «Выполнено за всё время» на странице "Лента заказов"')
     def test_changes_counter_for_quantity_of_orders(self, driver, login):
-        driver = login
+        driver = login  # фикстура
         main_page = MainPage(driver)
         feed_page = FeedPage(driver)
         main_page.main_page_loading_wait()  # ждём загрузку и скрытие оверлея
         # Переход на страницу "Лента заказов"
-        main_page.click_header_button_order_feed()
+        #main_page.get_text_on_title_collest_burger()
+        main_page.click_on_button_make_order()  # клик создания заказа
+        main_page.check_displaying_of_confirmation_window_of_order()  # отображение окна
+
+        #main_page.click_header_button_order_feed()
         # Получаем текущее значение счетчика "Выполнено за всё время"
         orders_count_1 = feed_page.get_quantity_of_orders()
         #count_before = int(orders_count_1)
@@ -37,10 +42,28 @@ class TestCounter:
         main_page.click_on_button_constructor()# Переход в конструктор
         main_page.drag_and_drop_ingredient_to_order()# добавляем ингред
         main_page.click_on_button_make_order()# клик создания заказа
-        main_page.check_displaying_of_confirmation_window_of_order()#отображение окна
+
         main_page.click_on_button_close_confirmation_window()# закрыть окно
         main_page.click_header_button_order_feed()# лента заказов переход
         orders_count_2 = feed_page.get_quantity_of_orders()
         assert orders_count_1 < orders_count_2
+
+    @allure.title('После оформления заказа его номер появляется в разделе "В работе"')
+    def test_order_in_progress_section(self, driver, login):
+        constructor_page = ConstructorPage(driver)
+        order_feed_page = OrderFeedPage(driver)
+        constructor_page.main_page_loading_wait()  # ожидаем исчезновения оверлея
+        constructor_page.wait_for_header_make_burger()  # ожидаем заголовок Соберите бургер
+        constructor_page.create_order()  # создаем заказ
+        order_feed_page.wait_header_id_order()  # ожидаем заголовок всплывающего окна с номером заказа
+        order_number = order_feed_page.get_order_number()  # получаем номер заказа в окне
+        order_feed_page.wait_for_loading_animation_end()  # ждем загрузки анимации
+        order_feed_page.scroll_to_x_on_popup_and_close()  # закрываем всплывающее окно с номером id заказа
+        order_feed_page.wait_button_order_feed()  # ожидаем появления кнопки Лента заказов
+        order_feed_page.click_button_order_feed()  # переходим в раздел Лента Заказов
+        order_feed_page.wait_header_order_feed()  # ожидаем появления заголовка Лента заказов
+        actual_number = order_feed_page.get_all_order_numbers_feed()  # получаем список всех номеров в разделе В работе
+        assert order_number in actual_number  # сравниваем результат
+
 
 

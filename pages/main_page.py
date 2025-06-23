@@ -1,9 +1,13 @@
-from base_page import BasePage
 from lokators.main_page_locators import MainPageLocators
 import allure
+from pages.base_page import BasePage
 
 
 class MainPage(BasePage):
+    @allure.step('Дождаться загрузки страницы')
+    def main_page_loading_wait(self):
+        self.wait_for_element_hide(MainPageLocators.OVERLAY)
+
     @allure.step('Кликнуть по кнопке перехода в личный кабинет')
     def click_on_personal_account_in_header(self):
         self.wait_for_element(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
@@ -47,11 +51,12 @@ class MainPage(BasePage):
         self.wait_for_element(MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
         self.click_on_element(MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
 
-    @allure.step('Добавить ингредиенты')
+
+    @allure.step('Перетащить ингредиент в корзину')
     def drag_and_drop_ingredient_to_order(self):
-        target_element = self.find_element_with_wait(MainPageLocators.BUN_1)
-        source_element = self.find_element_with_wait(MainPageLocators.BASKET)
-        self.drag_and_drop_element(source_element, target_element)
+        source = self.find_element_with_wait(MainPageLocators.BUN_1)  # ингредиент
+        target = self.find_element_with_wait(MainPageLocators.BASKET)  # корзина
+        self.drag_and_drop_element(source, target)
 
     @allure.step('Кликнуть на кнопку создания заказа')
     def click_on_button_make_order(self):
@@ -59,6 +64,7 @@ class MainPage(BasePage):
 
     @allure.step('Проверить отображение окна о создании заказа')
     def check_displaying_of_confirmation_window_of_order(self):
+        self.wait_for_element(MainPageLocators.ORDER_CONFIRMATION_WINDOW)
         return self.wait_for_attribute(MainPageLocators.ORDER_CONFIRMATION_WINDOW)
 
     @allure.step('Получить номер в окне о создании заказа')
@@ -66,16 +72,20 @@ class MainPage(BasePage):
         self.wait_for_attribute(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW, '9999')
         return self.get_text_on_element(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW)
 
-    @allure.step('Получить количество ингредиентов в счетчике')
-    def get_number_of_ingredients_in_counter(self):
-        self.wait_for_attribute(MainPageLocators.INGREDIENT_COUNTER_BUN)
+    @allure.step('Получить количество ингредиентов')
+    def get_count_of_ingredients(self):
         return self.get_text_on_element(MainPageLocators.INGREDIENT_COUNTER_BUN)
 
+    @allure.step('Проверить, что окно "Детали ингредиента" не отображается')
+    def check_not_displaying_of_window_details(self):
+        self.wait_for_element_hide(MainPageLocators.INGREDIENT_DETAILS)
+        if not self.check_displaying_of_element(MainPageLocators.INGREDIENT_DETAILS):
+            return True
 
-    #@allure.step('Кликнуть на кнопку закрытия окна о создании заказа')
-    #def click_on_button_close_confirmation_window(self):
-    #    self.check_element_is_clickable(MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
-    #    self.click_on_element(MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
+    @allure.step('Кликнуть на кнопку закрытия окна о создании заказа')
+    def click_on_button_close_confirmation_window(self):
+        self.check_displaying_of_element(MainPageLocators.BUTTON_CLOSE_ORDER)
+        self.click_on_element(MainPageLocators.BUTTON_CLOSE_ORDER)
 
 
     # возможно не надо будет
@@ -86,9 +96,14 @@ class MainPage(BasePage):
     #def wait_visibility_of_element(self, PERSONAL_ACCOUNT_BUTTON):
     #    pass
 
-    # возможно не надо будет
     #@allure.step('Проверить, что окно "Детали ингредиента" не отображается')
     #def check_not_displaying_of_window_details(self):
         #    self.wait_for_closing_of_element(MainPageLocators.header_of_modal_details)
         #if not self.check_displaying_of_element(MainPageLocators.header_of_modal_details):
     #   return True
+
+
+    #@allure.step('Получить количество ингредиентов в счетчике')
+    #def get_number_of_ingredients_in_counter(self):
+        #    self.find_element_with_wait(MainPageLocators.INGREDIENT_COUNTER_BUN)
+    #    return self.get_text_on_element(MainPageLocators.INGREDIENT_COUNTER_BUN)

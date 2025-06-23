@@ -1,10 +1,15 @@
 import pytest
 from selenium import webdriver
 import allure
-from urls import *
 from data import Credentials
 from pages.auth_page import AuthPage
 from lokators.auth_page_locators import AuthLocators
+from seletools.actions import drag_and_drop
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from lokators.main_page_locators import MainPageLocators
+from pages.main_page import MainPage
+
 
 @pytest.fixture(params=["chrome", "firefox"])
 @allure.title('Фикстура для брайзеров')
@@ -39,24 +44,29 @@ def login(driver):
 @pytest.fixture
 @allure.title('Фикстура создает заказ')
 def create_order(driver):
-    main_page = main_site(driver)
-    main_page.wait_for_element(main_page.locators.BUTTON_CONSTRUCTOR) # Ждем загрузки страницы
-    buns = main_page.driver.find_element(*main_page.locators.BUN_2)# Добавляем необходимые ингредиенты
-    buns.click()
-    sauces = main_page.driver.find_element(*main_page.locators.INGREDIENT_SAUCES_X)
-    sauces.click()
-    fillings = main_page.driver.find_element(*main_page.locators.INGREDIENT_FILLINGS_1)
-    fillings.click()
-    basket = main_page.driver.find_element(*main_page.locators.BASKET) # Переходим в корзину и оформляем заказ
-    basket.click()
-    order_button = main_page.driver.find_element(*main_page.locators.BUTTON_MAKE_ORDER)
-    order_button.click()
-    order_confirmation = main_page.wait_for_element(main_page.locators.ORDER_CONFIRMATION_WINDOW)# Ждём подтверждения заказа
-    yield order_confirmation  # возвращаем объект окна подтверждения для тестов
-    # После теста закрываем окно подтверждения
-    close_button = main_page.driver.find_element(*main_page.locators.BUTTON_CLOSE_CONFIRMATION)
-    close_button.click()
+    """
+    Фикстура для создания заказа на главной странице.
+    Предполагается, что пользователь уже авторизован.
+    Добавляет ингредиент в корзину и оформляет заказ.
+    """
+    main_page = MainPage(driver)
+    main_page.click_on_button_constructor()
+    main_page.main_page_loading_wait()  # ждём загрузку и скрытие оверлея
 
-#def test_order_creation(create_order):
-#    confirmation = create_order
-#    assert "Заказ" in confirmation.text используем фикстуру для создания заказа
+    # Перетащить ингредиент
+    main_page.drag_and_drop_ingredient_to_order()
+
+    # Нажать кнопку "Оформить заказ"
+    button_order = driver.find_element(*main_page.locators.BUTTON_MAKE_ORDER)
+    button_order.click()
+
+    # Ждём появления окна с подтверждением заказа
+    WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW)
+    )
+
+    yield driver
+
+    # По окончании теста закрываем окно подтверждения (кнопка крестик)
+    close_button = driver.find_element(*MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
+    close_button.click()

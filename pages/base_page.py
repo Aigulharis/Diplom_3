@@ -1,8 +1,10 @@
 import allure
+import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from seletools.actions import drag_and_drop
 from data import global_timeout
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage:
@@ -10,8 +12,8 @@ class BasePage:
         self.driver = driver
 
     @allure.step("Подождать видимости элемента")
-    def wait_for_element(self, locator, global_timeout):
-        return WebDriverWait(self.driver, global_timeout).until(EC.visibility_of_element_located(locator))
+    def wait_for_element(self, locator, timeout=10):
+        return WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
 
     @allure.step("Скролл до элемента")
     def scroll_to_element(self, locator, timeout=10):
@@ -45,11 +47,18 @@ class BasePage:
         WebDriverWait(self.driver, timeout=10).until(EC.invisibility_of_element_located(locator))
         return self.driver.find_element(*locator)
 
+    @allure.step('Проверить отображение элемента')
+    def check_displaying_of_element(self, locator):
+        return self.driver.find_element(*locator).is_displayed()
+
     @allure.step('Перетащить элемент в корзину')
     def drag_and_drop_element(self, source, target):
         drag_and_drop(self.driver, source, target)
 
+    @allure.step('Перетащить элемент')
+    def drag_and_drop_element(self, source, target):
+        drag_and_drop(self.driver, source, target)
+
     @allure.step('Найти элемент на странице')
-    def find_element_with_wait(self, locator):
-        self.wait_for_element(locator)
-        return self.driver.find_element(*locator)
+    def find_element_with_wait(self, locator, global_timeout=10):
+        return self.wait_for_element(locator, global_timeout)

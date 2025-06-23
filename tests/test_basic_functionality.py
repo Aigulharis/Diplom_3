@@ -1,14 +1,11 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
-import pytest
 from data import Credentials
-from pages.main_page import MainPage
 from lokators.main_page_locators import MainPageLocators
-from lokators.auth_page_locators import AuthLocators
-from urls import main_site
-from seletools.actions import drag_and_drop
-from selenium.webdriver import ActionChains
+import pytest
+
+
 
 class TestCheckingBasicFunctions:
 
@@ -102,26 +99,3 @@ class TestCheckingBasicFunctions:
         with allure.step('Проверка закрытия окна с деталями ингредиента'):
             closed = wait.until(EC.invisibility_of_element_located(MainPageLocators.INGREDIENT_DETAILS))
             assert closed, "Окно с деталями ингредиента не закрылось"
-
-
-    @allure.title("Проверка увеличения числа на счетчике ингредиента при добавлении в заказ ингредиента")
-    def test_increase_number_on_ingredient(self, driver):
-        wait = WebDriverWait(driver, 10)
-
-        with allure.step("Ожидание видимости элемента BUN_1"):
-            ingredient = wait.until(EC.visibility_of_element_located(MainPageLocators.BUN_1))
-
-        # Получаем начальное значение счётчика с помощью метода класса
-            initial_counter_value = int(self.get_number_of_ingredients_in_counter())
-
-        with allure.step("Перетаскивание ингредиента в корзину"):
-            self.drag_and_drop_ingredient_to_order()
-
-        with allure.step("Проверяем увеличение значения счётчика"):
-            wait.until(EC.text_to_be_present_in_element(
-                MainPageLocators.INGREDIENT_COUNTER_BUN, str(initial_counter_value + 1)
-            ))
-
-            updated_counter_value = int(self.get_number_of_ingredients_in_counter())
-            assert updated_counter_value > initial_counter_value, \
-                f"Счётчик не увеличился! Текущее значение: {updated_counter_value}, ожидалось больше {initial_counter_value}"

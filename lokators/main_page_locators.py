@@ -24,7 +24,7 @@ class MainPageLocators:
     ACTIVE_TAB_BUNS = (By.XPATH, ".//div[contains(@class, 'tab_tab_type_current__2BEPc') and span[text()='Булки']]")
 
     # Ингридиент - булка - Флюоресцентная булка R2 -D3
-    BUN_1 = (By.XPATH, ".//div[contains(@class, 'BurgerIngredient_ingredient__priceBox')]")
+    BUN_1 = (By.XPATH, ".//*[@alt='Флюоресцентная булка R2-D3']")
 
     # Ингридиент - булка - Краторная булка N-200i
     BUN_2 = (By.XPATH, ".//a/p[text()='Краторная булка N-200i']/ancestor::a")
@@ -57,10 +57,10 @@ class MainPageLocators:
     INGREDIENT_DETAILS = (By.XPATH, '//h2[contains(@class, "Modal_modal__title") and contains(text(), "Детали")]')
 
     # Корзина
-    BASKET = (By.XPATH, '//section[contains(@class, "BurgerConstructor_basket")]')
+    BASKET = (By.XPATH, './/section[contains(@class, "BurgerConstructor_basket")]')
 
     # Кнопка "Оформить заказ"
-    BUTTON_MAKE_ORDER = (By.CLASS_NAME, 'button_button__33qZ0')
+    BUTTON_MAKE_ORDER = (By.XPATH, '//button[contains(text(), "Оформить заказ")]')
 
     # Окно подтверждения создания заказа
     ORDER_CONFIRMATION_WINDOW = (By.XPATH, '//section[contains(@class, "Modal_modal_opened")]/div[contains'
@@ -68,12 +68,17 @@ class MainPageLocators:
     # Номер заказа в окне подтверждения
     ORDER_ID_CONFIRMATION_WINDOW = (By.XPATH, './/section[contains(@class, "Modal_modal_opened")]//h2')
 
-    # Кнопка-крестик закрывающая окно подтвержденного заказа и окна "Детали ингредиента"
+    # Кнопка-крестик закрывающая окно "Детали ингредиента"
     BUTTON_CLOSE_CONFIRMATION = (By.XPATH, './/section[contains(@class, "Modal_modal_opened")]//button[contains(@class, "close")]')
 
     # Счетчик ингредиента
-    INGREDIENT_COUNTER_BUN = (By.XPATH, ".//a[@href='/ingredient/61c0c5a71d1f82001bdaaa6d']//p[contains(@class, 'counter')]")
+    INGREDIENT_COUNTER_BUN = (By.XPATH, ".//div[contains(@class, 'counter_counter')]/p[contains(@class, 'counter_counter__num')]")
+    #//a[@href='/ingredient/61c0c5a71d1f82001bdaaa6d']//p[contains(@class, 'counter')]")
 
+    OVERLAY = (By.XPATH, ".//div[contains(@class, 'Modal_modal_overlay__x2ZCr')]/parent::div")
+
+    # Кнопка-крестик закрывающая окна подтверждения заказа
+    BUTTON_CLOSE_ORDER = (By.XPATH, './/button/*[name()="svg"]/*[starts-with(@d,"M3.29289")]')
 
 
     #Кнопка логотипа "Stella Burgers@

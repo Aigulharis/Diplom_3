@@ -62,3 +62,8 @@ class BasePage:
     @allure.step('Найти элемент на странице')
     def find_element_with_wait(self, locator, global_timeout=10):
         return self.wait_for_element(locator, global_timeout)
+
+    @allure.step('Подождать изменения текста на элементе')
+    def wait_for_element_change_text(self, locator, value):
+        return WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(locator, value))
+

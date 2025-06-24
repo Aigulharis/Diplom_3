@@ -9,7 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from lokators.main_page_locators import MainPageLocators
 from pages.main_page import MainPage
 from data import *
-from urls import Url, ApiUrl
 import requests
 
 

@@ -6,7 +6,7 @@ class OrderFeedPageLocators:
     COMPLETED_IN_ALL_TIME = (By.XPATH, ".//div[contains(@class, 'mb-15') and .//p[text()='Выполнено за все время:']]")
 
     # Раздел "Выполнено за сегодня"
-    COMPLETED_TODAY = (By.XPATH, ".//div[contains(@class, 'text_type_main-medium') and .//p[text()='Выполнено за сегодня:']]")
+    COMPLETED_TODAY = (By.XPATH, ".//p[text()='Выполнено за все время:']/following-sibling::p")
 
     # Раздел "В работе"
     AT_WORK = (By.XPATH, ".//ul[contains(@class, 'OrderFeed_orderListReady') and contains(@class, 'OrderFeed_orderList')]")

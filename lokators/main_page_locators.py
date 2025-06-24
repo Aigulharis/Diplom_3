@@ -83,6 +83,16 @@ class MainPageLocators:
     # Кнопка-крестик закрывающая окна подтверждения заказа
     BUTTON_CLOSE_ORDER = (By.XPATH, './/button/*[name()="svg"]/*[starts-with(@d,"M3.29289")]')
 
+    # Идентификатор заказа в окне подстверждения о создании заказа
+    #YYY = (By.XPATH, '//p[text()="идентификатор заказа"]')
+
+    # Номер заказа в окне подтверждения заказа
+    NUMBER_ORDER = (By.XPATH, "//h2[contains(@class, 'Modal_modal__title_shadow__3ikwq')]")
+
+    # Анимация в окне подтверждения заказа
+    ANIMATION = (By.XPATH, './/img[@src="./static/media/loading.89540200.svg"]')
+
+
 
     #Кнопка логотипа "Stella Burgers@
     #LOGO_STELLA_BURGERS = (By.TAG_NAME, "svg")

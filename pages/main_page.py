@@ -64,13 +64,13 @@ class MainPage(BasePage):
 
     @allure.step('Проверить отображение окна о создании заказа')
     def check_displaying_of_confirmation_window_of_order(self):
-        self.wait_for_element(MainPageLocators.ORDER_CONFIRMATION_WINDOW)
-        return self.wait_for_attribute(MainPageLocators.ORDER_CONFIRMATION_WINDOW)
+        return self.wait_for_element(MainPageLocators.ORDER_CONFIRMATION_WINDOW)
 
     @allure.step('Получить номер в окне о создании заказа')
     def get_number_of_order_in_window_confirmation(self):
-        self.wait_for_attribute(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW, '9999')
-        return self.get_text_on_element(MainPageLocators.ORDER_ID_CONFIRMATION_WINDOW)
+        self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER, '9999')
+        #self.wait_for_element_hide(MainPageLocators.ANIMATION)
+        return self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
 
     @allure.step('Получить количество ингредиентов')
     def get_count_of_ingredients(self):
@@ -90,6 +90,14 @@ class MainPage(BasePage):
     @allure.step('Получить текст заголовка "Собери бургур"')
     def get_text_on_title_collest_burger(self):
         return self.get_text_on_element(MainPageLocators.COLLECT_BURGER)
+
+    @allure.step('Проверить отображение элемента крестик в окне о создании заказа')
+    def check_displaying_of_element_button_close(self):
+        self.check_displaying_of_element(MainPageLocators.BUTTON_CLOSE_ORDER)
+
+    @allure.step('Обновление после Анимации в окне подтверждения заказа')
+    def wait_for_loading_animation_hide(self):
+        self.wait_for_element_hide(MainPageLocators.ANIMATION)
 
 
     # возможно не надо будет

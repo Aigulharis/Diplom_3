@@ -40,12 +40,12 @@ class TestCounter:
         main_page.get_number_of_order_in_window_confirmation()# получаем номер заказа в окне
         main_page.click_on_button_close_confirmation_window()  # закрыть окно
         main_page.click_header_button_order_feed()  # лента заказов переход
-        orders_modified = feed_page.get_quantity_of_orders()
+        orders_modified = feed_page.get_quantity_of_orders()# проверка изменения числа заказов
         assert orders_initial in orders_modified
 
 
     @allure.title('Проверка увеличения числа на счетчике «Выполнено за СЕГОДНЯ» на странице "Лента заказов"')
-    def test_changes_counter_for_quantity_of_orders_for_todey(self, driver, login):
+    def test_changes_counter_for_quantity_of_orders_for_today(self, driver, login):
         driver = login  # фикстура
         main_page = MainPage(driver)
         feed_page = FeedPage(driver)
@@ -60,34 +60,31 @@ class TestCounter:
         main_page.wait_for_loading_animation_hide()  # ждем загрузки анимации
         main_page.get_number_of_order_in_window_confirmation()# получаем номер заказа в окне
         main_page.click_on_button_close_confirmation_window()  # закрыть окно
+        #main_page.main_page_loading_wait()  # ждём загрузку и скрытие оверлея
         main_page.click_header_button_order_feed()  # лента заказов переход
         orders_modified = feed_page.get_daily_quantity_of_orders()
-        assert orders_initial in orders_modified
+        assert orders_initial in orders_modified # проверка изменения числа заказов
         #print(f"Номер заказа1: {orders_initial}")  # выводим номер на экран
         #print(f"Номер заказа2: {orders_modified}")  # выводим номер на экран
 
 
     @allure.title('После оформления заказа его номер появляется в разделе "В работе" на странице "Лента заказов"')
-    def test_changes_counter_for_quantity_of_orders_for_todey(self, driver, login):
+    def test_changes_counter_for_quantity_of_orders_in_work(self, driver, login):
         driver = login  # фикстура
         main_page = MainPage(driver)
         feed_page = FeedPage(driver)
         main_page.main_page_loading_wait()  # ждём загрузку и скрытие оверлея
         main_page.get_text_on_title_collest_burger()# ожидаем заголовок "Собирите бургер"
-        main_page.click_header_button_order_feed()  # лента заказов переход
-        orders_initial = feed_page.get_daily_quantity_of_orders()  # Получаем текущее значение счетчика "за СЕГОДНЯ"
-        main_page.click_on_button_constructor()# Переход в конструктор
         main_page.click_on_button_make_order()  # клик создания заказа
         main_page.drag_and_drop_ingredient_to_order()# добавляем ингред
         main_page.check_displaying_of_confirmation_window_of_order()  # отображение окна о создании заказа
-        main_page.wait_for_loading_animation_hide()  # ждем загрузки анимации
-        main_page.get_number_of_order_in_window_confirmation()# получаем номер заказа в окне
+        main_page.wait_for_loading_animation_hide()  # ждем анимацию
+        order_number = main_page.get_number_of_order_in_window_confirmation()# получаем номер заказа в окне
         main_page.click_on_button_close_confirmation_window()  # закрыть окно
         main_page.click_header_button_order_feed()  # лента заказов переход
-        orders_modified = feed_page.get_daily_quantity_of_orders()
-        assert orders_initial in orders_modified
-        #print(f"Номер заказа1: {orders_initial}")  # выводим номер на экран
-        #print(f"Номер заказа2: {orders_modified}")  # выводим номер на экран
+        feed_page.get_text_on_title_at_work()# ожидаем появления заголовка "В работе"
+        orders_in_work = feed_page.get_order_number_in_feed_progress_section()# получаем список всех номеров в разделе В работе
+        assert order_number in orders_in_work, f"Номер заказа {order_number} не найден в разделе 'В работе'"
 
 
     @allure.title('После оформления заказа его номер появляется в разделе "В работе"')
@@ -109,15 +106,4 @@ class TestCounter:
 
 
 
-        #orders_count_1 = feed_page.get_quantity_of_orders() # Получаем текущее значение счетчика "Выполнено за всё время"
-        #count_before = int(orders_count_1)
-        # Возвращаемся на главную, добавляем ингредиент в корзину и оформляем заказ
-        #main_page.click_on_button_constructor()# Переход в конструктор
-        #main_page.drag_and_drop_ingredient_to_order()# добавляем ингред
-        #main_page.click_on_button_make_order()# клик создания заказа
-
-        #main_page.click_on_button_close_confirmation_window()# закрыть окно
-        #main_page.click_header_button_order_feed()# лента заказов переход
-        #orders_count_2 = feed_page.get_quantity_of_orders()
-        #assert orders_count_1 < orders_count_2
 

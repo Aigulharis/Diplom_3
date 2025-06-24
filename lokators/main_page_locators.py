@@ -86,8 +86,8 @@ class MainPageLocators:
     # Идентификатор заказа в окне подстверждения о создании заказа
     #YYY = (By.XPATH, '//p[text()="идентификатор заказа"]')
 
-    # Номер заказа в окне подтверждения заказа
-    NUMBER_ORDER = (By.XPATH, "//h2[contains(@class, 'Modal_modal__title_shadow__3ikwq')]")
+    # Номер заказа в окне подтверждения заказа //h2[contains(@class, 'Modal_modal__title_shadow__3ikwq') and contains(@class, 'Modal_modal__title__2L34m') and contains(@class, 'text_type_digits-large')]
+    NUMBER_ORDER = (By.XPATH, "//h2[@class='Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8']")
 
     # Анимация в окне подтверждения заказа
     ANIMATION = (By.XPATH, './/img[@src="./static/media/loading.89540200.svg"]')

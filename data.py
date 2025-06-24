@@ -3,4 +3,4 @@ class Credentials:
     PASSWORD='12345*'
 
 
-global_timeout = 10
+global_timeout = 15

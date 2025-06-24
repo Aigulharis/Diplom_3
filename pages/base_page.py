@@ -4,7 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from seletools.actions import drag_and_drop
 from data import global_timeout
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage:
@@ -36,16 +35,27 @@ class BasePage:
         element = self.wait_for_element(locator, timeout)
         return element.text
 
+    @allure.step('Подождать изменения текста на элементе')
+    def wait_for_element_change_text(self, locator, value):
+        return WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(locator, value))
+
+
+
     @allure.step("Подождать и проверить, что атрибут элемента содержит текст")
     def wait_for_attribute(self, locator, attribute, value, timeout=10):
         return WebDriverWait(self.driver, timeout).until(
             EC.text_to_be_present_in_element_attribute(locator, attribute, value)
         )
 
-    @allure.step('Подождать пока элемент не станет невидимым')
-    def wait_for_element_hide(self, locator):
-        WebDriverWait(self.driver, timeout=10).until(EC.invisibility_of_element_located(locator))
-        return self.driver.find_element(*locator)
+    #@allure.step('Подождать пока элемент не станет невидимым')
+    #def wait_for_element_hide(self, locator):
+        #    WebDriverWait(self.driver, timeout=15).until(EC.invisibility_of_element_located(locator))
+    #    return self.driver.find_element(*locator)
+
+    @allure.step("Подождать пока элемент не станет невидимым")
+    def wait_for_element_hide(self, locator, timeout=15):
+        return WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located(locator))
+
 
     @allure.step('Проверить отображение элемента')
     def check_displaying_of_element(self, locator):
@@ -55,9 +65,9 @@ class BasePage:
     def drag_and_drop_element(self, source, target):
         drag_and_drop(self.driver, source, target)
 
-    @allure.step('Перетащить элемент')
-    def drag_and_drop_element(self, source, target):
-        drag_and_drop(self.driver, source, target)
+    #@allure.step('Перетащить элемент')
+    #def drag_and_drop_element(self, source, target):
+    #    drag_and_drop(self.driver, source, target)
 
     @allure.step('Найти элемент на странице')
     def find_element_with_wait(self, locator, global_timeout=10):
@@ -66,4 +76,7 @@ class BasePage:
     @allure.step('Подождать изменения текста на элементе')
     def wait_for_element_change_text(self, locator, value):
         return WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(locator, value))
+
+
+
 

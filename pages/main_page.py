@@ -1,6 +1,10 @@
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from lokators.main_page_locators import MainPageLocators
 import allure
 from pages.base_page import BasePage
+import time
+
 
 
 class MainPage(BasePage):
@@ -66,11 +70,21 @@ class MainPage(BasePage):
     def check_displaying_of_confirmation_window_of_order(self):
         return self.wait_for_element(MainPageLocators.ORDER_CONFIRMATION_WINDOW)
 
-    @allure.step('Получить номер в окне о создании заказа')
+    @allure.step('Обновление после Анимации в окне подтверждения заказа')
+    def wait_for_loading_animation_hide(self):
+        self.wait_for_element_hide(MainPageLocators.ANIMATION)
+
+    #@allure.step('Получить номер заказа (id) в окне о создании заказа')
+    #def get_number_of_order_in_window_confirmation(self):
+        #self.wait_for_loading_animation_hide()  # ждем, пока анимация исчезнет
+        #self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER, '9999')  # ждем изменения номера
+        #self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER, '9999')  # ждем изменения номера
+        #return self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
+
+    @allure.step('Получить номер заказа (id) в окне о создании заказа')
     def get_number_of_order_in_window_confirmation(self):
-        self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER, '9999')
-        #self.wait_for_element_hide(MainPageLocators.ANIMATION)
-        return self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
+        self.wait_for_loading_animation_hide()
+        return self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER)
 
     @allure.step('Получить количество ингредиентов')
     def get_count_of_ingredients(self):
@@ -87,7 +101,7 @@ class MainPage(BasePage):
         self.check_displaying_of_element(MainPageLocators.BUTTON_CLOSE_ORDER)
         self.click_on_element(MainPageLocators.BUTTON_CLOSE_ORDER)
 
-    @allure.step('Получить текст заголовка "Собери бургур"')
+    @allure.step('Получить текст заголовка "Собери бургер"')
     def get_text_on_title_collest_burger(self):
         return self.get_text_on_element(MainPageLocators.COLLECT_BURGER)
 
@@ -95,9 +109,8 @@ class MainPage(BasePage):
     def check_displaying_of_element_button_close(self):
         self.check_displaying_of_element(MainPageLocators.BUTTON_CLOSE_ORDER)
 
-    @allure.step('Обновление после Анимации в окне подтверждения заказа')
-    def wait_for_loading_animation_hide(self):
-        self.wait_for_element_hide(MainPageLocators.ANIMATION)
+
+
 
 
     # возможно не надо будет

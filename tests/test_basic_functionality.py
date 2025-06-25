@@ -37,8 +37,8 @@ class TestCheckingBasicFunctions:
             assert main_page.check_displaying_of_window_details(), "Окно с деталями ингредиента не открылось"
 
 
-    @allure.title('Проверка отображения окна "Детали ингредиента" при клике на ингредиент')
-    def test_ingredient_details_window_opening(self, driver):
+    @allure.title('Проверка закрытия окна с деталями ингредиентов кликом на крестик')
+    def test_ingredient_details_window_closing(self, driver):
         main_page = MainPage(driver)
         with allure.step("Ожидание загрузки главной страницы без оверлея"):
             main_page.main_page_loading_wait()
@@ -50,20 +50,6 @@ class TestCheckingBasicFunctions:
             main_page.main_page_loading_wait()
         with allure.step("Проверка, что окно с деталями ингредиента закрылось"):
             assert not main_page.check_not_window_details(), "Окно с деталями ингредиента не закрылось"
-
-
-    @allure.title('Проверка увеличения числа на счетчике ингредиента при добавлении в заказ ингредиента')
-    def test_increase_number_on_ingredient(self, driver):
-        main_page = MainPage(driver)
-        main_page.main_page_loading_wait()
-        with allure.step('Получение значения счетчика ингредиентов до добавления'):
-            counter_before = main_page.get_count_of_ingredients()
-        with allure.step('Добавляем ингредиенты в заказ'):
-            main_page.drag_and_drop_ingredient_to_order()
-        with allure.step('Получение значения счетчика ингредиентов после добавления'):
-            counter_after = main_page.get_count_of_ingredients()
-        with allure.step('Проверка, что счетчик увеличился'):
-            assert counter_before < counter_after, "Счетчик ингредиентов не увеличился после добавления"
 
 
     @allure.title('Проверка увеличения числа на счетчике ингредиента при добавлении в заказ ингредиента')

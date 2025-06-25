@@ -8,7 +8,7 @@ class MainPageLocators:
     # Заголовок раздела "Конструктор"
     CONSTRUCTOR_TITLE = (By.XPATH, '//section[contains(@class, "BurgerIngredients_ingredients")]/h1')
 
-    # Заголовок раздела "Соберите бургер" //h1[@class="text text_type_main-large mb-5 mt-10"]
+    # Заголовок раздела "Соберите бургер"
     COLLECT_BURGER = (By.XPATH, ".//h1[@class='text text_type_main-large mb-5 mt-10']")
 
     # Кнопка "Лента заказов"
@@ -76,14 +76,13 @@ class MainPageLocators:
 
     # Счетчик ингредиента
     INGREDIENT_COUNTER_BUN = (By.XPATH, ".//div[contains(@class, 'counter_counter')]/p[contains(@class, 'counter_counter__num')]")
-    #//a[@href='/ingredient/61c0c5a71d1f82001bdaaa6d']//p[contains(@class, 'counter')]")
 
     OVERLAY = (By.XPATH, ".//div[contains(@class, 'Modal_modal_overlay__x2ZCr')]/parent::div")
 
     # Кнопка-крестик закрывающая окна подтверждения заказа
     BUTTON_CLOSE_ORDER = (By.XPATH, './/button/*[name()="svg"]/*[starts-with(@d,"M3.29289")]')
 
-    # Номер заказа в окне подтверждения заказа //h2[contains(@class, 'Modal_modal__title_shadow__3ikwq') and contains(@class, 'Modal_modal__title__2L34m') and contains(@class, 'text_type_digits-large')]
+    # Номер заказа в окне подтверждения заказа
     NUMBER_ORDER = (By.XPATH, "//h2[@class='Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8']")
 
     # Анимация в окне подтверждения заказа

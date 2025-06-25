@@ -25,4 +25,3 @@ class FeedPage(BasePage):
     @allure.step('Получить текст заголовка раздела "Лента заказов"')
     def get_text_title_orders_list(self):
         return self.get_text_on_element(OrderFeedPageLocators.TITLE_ORDER_FEED)
-

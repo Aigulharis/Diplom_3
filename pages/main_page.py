@@ -1,7 +1,6 @@
 from lokators.main_page_locators import MainPageLocators
 import allure
 from pages.base_page import BasePage
-from lokators.order_histori_page_locators import OrderFeedPageLocators
 
 
 class MainPage(BasePage):
@@ -78,7 +77,6 @@ class MainPage(BasePage):
 
     @allure.step('Получить номер заказа (id) в окне о создании заказа')
     def get_number_of_order_in_window_confirmation(self):
-        #self.wait_for_loading_animation_hide()# ждем, пока анимация исчезнет
         self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
         return self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
 

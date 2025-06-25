@@ -11,4 +11,3 @@ class AuthPage(BasePage):
         self.send_keys_to_input(AuthLocators.EMAIL, email)
         self.send_keys_to_input(AuthLocators.PASSWORD, password)
         self.click_on_element(AuthLocators.LOGIN_BUTTON)
-

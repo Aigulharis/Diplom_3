@@ -7,18 +7,16 @@ import requests
 
 
 @pytest.fixture(params=["chrome", "firefox"])
-@allure.title('Фикстура для брайзеров')
+@allure.title('Фикстура для браузеров')
 def driver(request):
     if request.param == "chrome":
         driver = webdriver.Chrome()
         driver.get("https://stellarburgers.nomoreparties.site/")
         driver.set_window_size(1920, 1080)
-        #driver.get(MANE_SITE)
     elif request.param == "firefox":
         driver = webdriver.Firefox()
         driver.get("https://stellarburgers.nomoreparties.site/")
         driver.set_window_size(1920, 1080)
-        #driver.get(MANE_SITE)
 
     yield driver
     driver.quit()

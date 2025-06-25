@@ -59,8 +59,8 @@ class TestFeed:
             assert orders_initial < orders_modified, "Счетчик заказов за сегодня не обновился после создания нового заказа"
 
 
-    @allure.title('Проверка увеличения числа на счетчике «Выполнено за СЕГОДНЯ» на странице "Лента заказов"')
-    def test_changes_counter_for_quantity_of_orders_for_today(self, driver, login):
+    @allure.title('После оформления заказа его номер появляется в разделе "В работе" на странице "Лента заказов"')
+    def test_changes_counter_for_quantity_of_orders_in_work(self, driver, login):
         driver = login  # фикстура
         main_page = MainPage(driver)
         feed_page = FeedPage(driver)

@@ -8,8 +8,8 @@ class MainPageLocators:
     # Заголовок раздела "Конструктор"
     CONSTRUCTOR_TITLE = (By.XPATH, '//section[contains(@class, "BurgerIngredients_ingredients")]/h1')
 
-    # Заголовок раздела "Собери бургер"
-    COLLECT_BURGER = (By.XPATH, '//h1[@class="text text_type_main-large mb-5 mt-10"]')
+    # Заголовок раздела "Соберите бургер" //h1[@class="text text_type_main-large mb-5 mt-10"]
+    COLLECT_BURGER = (By.XPATH, ".//h1[@class='text text_type_main-large mb-5 mt-10']")
 
     # Кнопка "Лента заказов"
     BUTTON_ORDER_FEED = (By.XPATH, ".//a[p/text()='Лента Заказов']")
@@ -83,17 +83,10 @@ class MainPageLocators:
     # Кнопка-крестик закрывающая окна подтверждения заказа
     BUTTON_CLOSE_ORDER = (By.XPATH, './/button/*[name()="svg"]/*[starts-with(@d,"M3.29289")]')
 
-    # Идентификатор заказа в окне подстверждения о создании заказа
-    #YYY = (By.XPATH, '//p[text()="идентификатор заказа"]')
-
     # Номер заказа в окне подтверждения заказа //h2[contains(@class, 'Modal_modal__title_shadow__3ikwq') and contains(@class, 'Modal_modal__title__2L34m') and contains(@class, 'text_type_digits-large')]
     NUMBER_ORDER = (By.XPATH, "//h2[@class='Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8']")
 
     # Анимация в окне подтверждения заказа
     ANIMATION = (By.XPATH, './/img[@src="./static/media/loading.89540200.svg"]')
 
-
-
-    #Кнопка логотипа "Stella Burgers@
-    #LOGO_STELLA_BURGERS = (By.TAG_NAME, "svg")
 

@@ -5,7 +5,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from seletools.actions import drag_and_drop
 from data import global_timeout
-import time
 from selenium.common.exceptions import StaleElementReferenceException
 
 
@@ -42,21 +41,11 @@ class BasePage:
     def wait_for_element_change_text(self, locator, value):
         return WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(locator, value))
 
-    @allure.step('Подождать изменения текста на элементе')
-    #def wait_for_element_change_text(self, locator):
-     #   return WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(locator)
-
-
-    @allure.step("Подождать и проверить, что атрибут элемента содержит текст")
-    def wait_for_attribute(self, locator, attribute, value, timeout=10):
-        return WebDriverWait(self.driver, timeout).until(
-            EC.text_to_be_present_in_element_attribute(locator, attribute, value)
-        )
-
-    #@allure.step('Подождать пока элемент не станет невидимым')
-    #def wait_for_element_hide(self, locator):
-        #    WebDriverWait(self.driver, timeout=15).until(EC.invisibility_of_element_located(locator))
-    #    return self.driver.find_element(*locator)
+    #@allure.step("Подождать и проверить, что атрибут элемента содержит текст")
+    #def wait_for_attribute(self, locator, attribute, value, timeout=10):
+    #    return WebDriverWait(self.driver, timeout).until(
+    #        EC.text_to_be_present_in_element_attribute(locator, attribute, value)
+    #    )
 
     @allure.step("Подождать пока элемент не станет невидимым")
     def wait_for_element_hide(self, locator, timeout=15):
@@ -65,8 +54,6 @@ class BasePage:
     @allure.step("Проверить, что элемент стал невидимым")
     def check_element_hide(self, locator, timeout=15):
         return self.driver.find_element(*locator).is_displayed()
-
-
 
     @allure.step('Проверить отображение элемента')
     def check_displaying_of_element(self, locator):
@@ -83,6 +70,10 @@ class BasePage:
     @allure.step('Подождать изменения текста на элементе')
     def wait_for_element_change_text(self, locator, value):
         return WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(locator, value))
+
+    @allure.step('Подождать, пока элемент закроется')
+    def wait_for_closing_element(self, locator):
+        WebDriverWait(self.driver, 15).until(EC.invisibility_of_element_located(locator))
 
 
 

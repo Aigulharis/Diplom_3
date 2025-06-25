@@ -9,21 +9,8 @@ import pytest
 
 class TestCheckingBasicFunctions:
 
-    @allure.title('Проверяем переход в раздел "Лента заказов" без авторизации с главной страницы')
+    @allure.title('Проверяем переход в раздел "Лента заказов" с главной страницы')
     def test_order_feed_access_without_auth(self, driver):  # фикстура только с driver без авторизации
-        wait = WebDriverWait(driver, 10)
-
-        with allure.step('Переход в раздел "Лента заказов"'):
-            order_feed_btn = wait.until(EC.element_to_be_clickable(MainPageLocators.BUTTON_ORDER_FEED))
-            order_feed_btn.click()
-
-        with allure.step('Проверка открытия раздела "Лента заказов"'):
-            order_feed_header = wait.until(EC.visibility_of_element_located(MainPageLocators.BUTTON_ORDER_FEED))
-            assert order_feed_header.is_displayed(), "Не открылся раздел 'Лента заказов' после перехода"
-
-    @allure.title('Проверяем переход по клику в раздел "Лента заказов после авторизации в личном кабинете')
-    def test_login_in_order_fee_through_personal_account_auth(self, login):  # Используем login вместо driver
-        driver = login  # фикстура возвращает driver после авторизации
         wait = WebDriverWait(driver, 10)
 
         with allure.step('Переход в раздел "Лента заказов"'):

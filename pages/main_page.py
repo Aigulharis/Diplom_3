@@ -55,7 +55,6 @@ class MainPage(BasePage):
         self.wait_for_element(MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
         self.click_on_element(MainPageLocators.BUTTON_CLOSE_CONFIRMATION)
 
-
     @allure.step('Перетащить ингредиент в корзину')
     def drag_and_drop_ingredient_to_order(self):
         source = self.find_element_with_wait(MainPageLocators.BUN_1)  # ингредиент
@@ -74,17 +73,19 @@ class MainPage(BasePage):
     def wait_for_loading_animation_hide(self):
         self.wait_for_element_hide(MainPageLocators.ANIMATION)
 
-    #@allure.step('Получить номер заказа (id) в окне о создании заказа')
+    @allure.step('Получить номер заказа (id) в окне о создании заказа')
     #def get_number_of_order_in_window_confirmation(self):
-        #self.wait_for_loading_animation_hide()  # ждем, пока анимация исчезнет
-        #self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER, '9999')  # ждем изменения номера
-        #self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER, '9999')  # ждем изменения номера
-        #return self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
+    #    self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER, '9999')  # ждем изменения номера
+    #    self.wait_for_loading_animation_hide()  # ждем, пока анимация исчезнет
+    #    #self.check_element_hide(MainPageLocators.ANIMATION)
+    #    return self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
 
     @allure.step('Получить номер заказа (id) в окне о создании заказа')
     def get_number_of_order_in_window_confirmation(self):
-        self.wait_for_loading_animation_hide()
-        return self.wait_for_element_change_text(MainPageLocators.NUMBER_ORDER)
+        #self.wait_for_loading_animation_hide()# ждем, пока анимация исчезнет
+        self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
+        return self.get_text_on_element(MainPageLocators.NUMBER_ORDER)
+
 
     @allure.step('Получить количество ингредиентов')
     def get_count_of_ingredients(self):
@@ -108,27 +109,3 @@ class MainPage(BasePage):
     @allure.step('Проверить отображение элемента крестик в окне о создании заказа')
     def check_displaying_of_element_button_close(self):
         self.check_displaying_of_element(MainPageLocators.BUTTON_CLOSE_ORDER)
-
-
-
-
-
-    # возможно не надо будет
-    #@allure.step('Получить количество ингредиентов')
-    #def get_count_of_ingredients(self):
-    #    return self.get_text_on_element(MainPageLocators.count_of_ingredient)
-
-    #def wait_visibility_of_element(self, PERSONAL_ACCOUNT_BUTTON):
-    #    pass
-
-    #@allure.step('Проверить, что окно "Детали ингредиента" не отображается')
-    #def check_not_displaying_of_window_details(self):
-        #    self.wait_for_closing_of_element(MainPageLocators.header_of_modal_details)
-        #if not self.check_displaying_of_element(MainPageLocators.header_of_modal_details):
-    #   return True
-
-
-    #@allure.step('Получить количество ингредиентов в счетчике')
-    #def get_number_of_ingredients_in_counter(self):
-        #    self.find_element_with_wait(MainPageLocators.INGREDIENT_COUNTER_BUN)
-    #    return self.get_text_on_element(MainPageLocators.INGREDIENT_COUNTER_BUN)

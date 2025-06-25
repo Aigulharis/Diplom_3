@@ -1,6 +1,6 @@
 class Credentials:
-    EMAIL='Simba@mail.ru'
-    PASSWORD='12345*'
+    EMAIL='Nala77@yandex.ru'
+    PASSWORD='Nala77'
 
 
 global_timeout = 15

@@ -3,7 +3,6 @@ from selenium import webdriver
 import allure
 from pages.auth_page import AuthPage
 from data import *
-import requests
 
 
 @pytest.fixture(params=["chrome", "firefox"])
